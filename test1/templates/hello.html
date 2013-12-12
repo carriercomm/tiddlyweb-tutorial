@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Hi</title>
+</head>
+<body>
+<h1>Hello {{ username }}</h1>
+<p>Aren't you happy to be said hello to?</p>
+
+<form action="/extras/create" method="POST">
+    <input placeholder="title" name="title" size="40"><br/>
+    <textarea name="text" rows="10" cols="80" placeholder="text"></textarea><br/>
+    <input name="submit" type="submit">
+</form>
+
+<h2>Tiddlers!</h2>
+<ul id="content">
+{% for tiddler in tiddlers %}
+<li>{{ tiddler.title }}</li>
+{% endfor %}
+</ul>
+<h2>Bags!</h2>
+<dl id="bag">
+{% for bag in bags %}
+<dt>{{ bag.name }}</dt>
+<dd><ul>
+{% for constraint in bag.policy.attributes %}
+<li>{{ constraint }}:
+{% if bag.policy[constraint] %}
+{% for value in bag.policy[constraint] %}
+{{ value }}
+{% endfor %}
+{% endif %}
+</li>
+{% endfor %}
+</ul></dd>
+</dt>
+{% endfor %}
+</dl>
+</body>
+</html>
